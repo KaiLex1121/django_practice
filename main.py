@@ -3,4 +3,3 @@ def test_func(number: int) -> int:
 
 
 test_func(1)
-print('1')
