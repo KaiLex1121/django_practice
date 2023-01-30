@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('<weekday>/', views.get_todo_list)
+    path('<int:weekday_num>/', views.get_todo_list_by_num),
+    path('<str:weekday>/', views.get_todo_list)
     ]

@@ -1,10 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 
-# Create your views here.
-def get_zodiac_sign(request, zodiac_sign):
 
-    zodiac_sign = zodiac_sign.lower()
+def get_signs() -> dict:
 
     signs = {
         "aries": "Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).",
@@ -21,6 +19,28 @@ def get_zodiac_sign(request, zodiac_sign):
         "pisces": "Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта)."
     }
 
-    if zodiac_sign in signs:
-        return HttpResponse(signs[zodiac_sign])
-    return HttpResponse("Неизвестный знак зодиака")
+    return signs
+
+
+def get_zodiac_sign(request, zodiac_sign: str):
+
+    signs = get_signs()
+
+    response = signs.get(zodiac_sign.lower(), None)
+
+    if response:
+        return HttpResponse(response)
+    return HttpResponseNotFound(f"Неизвестный знак зодиака {zodiac_sign}")
+
+
+def get_zodiac_sign_by_num(request, zodiac_number: int):
+
+    signs = get_signs()
+
+    if 1 <= zodiac_number <= len(signs):
+        sign_by_number = tuple(signs.keys())[zodiac_number-1]
+        response = signs[sign_by_number]
+    else:
+        response = f'Знака с номером {zodiac_number} нет'
+
+    return HttpResponse(response)
