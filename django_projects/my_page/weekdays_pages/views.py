@@ -4,8 +4,14 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-def monday_todo(request):
-    return HttpResponse("<h1> Monday TODO list </h1> <ul> <li> Do something cool </li> <li> Do something bad </li> </ul")
+def get_todo_list(request, weekday):
 
-def tuesday_todo(request):
-    return HttpResponse("<h1> Tuesday TODO list </h1> <p> I didn't plan anything today </p>")
+    weekday = weekday.capitalize()
+
+    days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
+            'Sunday')
+
+    if weekday in days:
+        return HttpResponse(f"Today is {weekday} and i'll do nothing")
+
+    return HttpResponse(f'Дня недели {weekday} не существует')
