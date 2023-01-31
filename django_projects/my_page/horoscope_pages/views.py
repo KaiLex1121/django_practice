@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
 def get_signs() -> dict:
@@ -38,9 +38,9 @@ def get_zodiac_sign_by_num(request, zodiac_number: int):
     signs = get_signs()
 
     if 1 <= zodiac_number <= len(signs):
-        sign_by_number = tuple(signs.keys())[zodiac_number-1]
-        response = signs[sign_by_number]
+        sign_by_number = tuple(signs)[zodiac_number-1]
+        response = HttpResponseRedirect(f'/horoscope/{sign_by_number}')
     else:
-        response = f'Знака с номером {zodiac_number} нет'
+        response = HttpResponseNotFound(f'Знака с номером {zodiac_number} нет')
 
-    return HttpResponse(response)
+    return response
