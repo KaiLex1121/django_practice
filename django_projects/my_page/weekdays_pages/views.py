@@ -1,23 +1,24 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
-# Create your views here.
+days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
+
 
 def get_todo_list(request, weekday):
 
     weekday = weekday.capitalize()
 
-    days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
-            'Sunday')
-
     if weekday in days:
         return HttpResponse(f"Today is {weekday} and i'll do nothing")
 
-    return HttpResponse(f'Дня недели {weekday} не существует')
+    return HttpResponseNotFound(f'Дня недели {weekday} не существует')
 
 
 def get_todo_list_by_num(request, weekday_num):
     if 1 <= weekday_num <= 7:
-        return HttpResponse(f"Today is the {weekday_num} day of the week")
-    return HttpResponse(f'Incorrect number - {weekday_num}')
+        response = days[weekday_num-1]
+
+        return HttpResponseRedirect(f'/weekdays/{response}')
+
+    return HttpResponseNotFound(f'Дня недели {weekday_num} не существует')
