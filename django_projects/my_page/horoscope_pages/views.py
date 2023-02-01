@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
 
 
 def get_signs() -> dict:
@@ -39,7 +40,8 @@ def get_zodiac_sign_by_num(request, zodiac_number: int):
 
     if 1 <= zodiac_number <= len(signs):
         sign_by_number = tuple(signs)[zodiac_number-1]
-        response = HttpResponseRedirect(f'/horoscope/{sign_by_number}')
+        redirected_url = reverse('horoscope_zodiac_sign', args=(sign_by_number,))
+        response = HttpResponseRedirect(redirected_url)
     else:
         response = HttpResponseNotFound(f'Знака с номером {zodiac_number} нет')
 
