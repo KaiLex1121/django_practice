@@ -23,6 +23,22 @@ def get_signs() -> dict:
     return signs
 
 
+def get_index(request):
+
+    signs_names = tuple(get_signs())
+
+    signs_with_html_tags = ''
+
+    for sign in signs_names:
+        redirect_url = reverse('horoscope_zodiac_sign', args=(sign,))
+        signs_with_html_tags += f'<li> <a href="{redirect_url}"> {sign} </a> </li>'
+
+    response = f'<ol> {signs_with_html_tags} </ol>'
+
+    return HttpResponse(response)
+
+
+
 def get_zodiac_sign(request, zodiac_sign: str):
 
     signs = get_signs()
