@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
 from datetime import datetime, date
 
+
 def get_signs() -> dict:
 
     signs = {
