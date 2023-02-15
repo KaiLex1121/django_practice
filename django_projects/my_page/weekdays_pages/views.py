@@ -6,6 +6,11 @@ from django.urls import reverse
 days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
 
 
+def get_main_page(request):
+
+    return render(request, 'weekdays_pages/greeting.html')
+
+
 def get_todo_list(request, weekday):
 
     weekday = weekday.capitalize()
