@@ -5,9 +5,8 @@ from math import pi
 
 
 def get_rectangle_area(request, width, height):
-    square = width * height
 
-    return HttpResponse(f"Площадь = {square}")
+    return render(request, 'geometry_pages/rectangle.html')
 
 
 def get_rectangle_area_redirect(request, width, height):
