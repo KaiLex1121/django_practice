@@ -116,17 +116,13 @@ def get_signs_by_elements(request, element):
 
 def get_index(request):
 
-    signs_names = tuple(get_signs())
+    elements_types = tuple(get_signs())
 
-    signs_with_html_tags = ''
+    context_data = {
+                    'zodiacs': elements_types
+    }
 
-    for sign in signs_names:
-        redirect_url = reverse('horoscope_zodiac_sign', args=(sign,))
-        signs_with_html_tags += f'<li> <a href="{redirect_url}"> {sign.title()} </a> </li>'
-
-    response = f'<ol> {signs_with_html_tags} </ol>'
-
-    return HttpResponse(response)
+    return render(request, 'horoscope_pages/index.html', context=context_data)
 
 
 def get_zodiac_sign(request, zodiac_sign: str):
@@ -137,6 +133,7 @@ def get_zodiac_sign(request, zodiac_sign: str):
 
     if response:
         return HttpResponse(response)
+
     return HttpResponseNotFound(f"Неизвестный знак зодиака {zodiac_sign}")
 
 
