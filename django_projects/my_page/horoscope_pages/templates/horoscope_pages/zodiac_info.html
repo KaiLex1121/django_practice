@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
+
+{% block additional_css %}
+    <link rel='stylesheet' href= "{% static 'horoscope_pages/css/zodiac_info.css' %}"
+{% endblock additional_css %}
 
 {% block title %}
-
     Info about {{zodiac|title}}
-
 {% endblock %}
 
 {% block content %}
-
-    <h2> {{zodiac_info}} </h2>
-
+    <h2 class = 'zodiac_info'> {{zodiac_info}} </h2>
 {% endblock %}
